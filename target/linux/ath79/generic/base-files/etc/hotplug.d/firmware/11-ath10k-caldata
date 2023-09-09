@@ -26,7 +26,6 @@ case "$FIRMWARE" in
 	comfast,cf-wr650ac-v2|\
 	devolo,dlan-pro-1200plus-ac|\
 	devolo,magic-2-wifi|\
-	huawei,ap5030dn|\
 	joyit,jt-or750i|\
 	qxwlan,e1700ac-v2-8m|\
 	qxwlan,e1700ac-v2-16m|\
@@ -86,6 +85,10 @@ case "$FIRMWARE" in
 	glinet,gl-ar750)
 		caldata_extract "art" 0x5000 0x844
 		ath10k_patch_mac $(macaddr_add $(mtd_get_mac_binary art 0x0) 1)
+		;;
+	huawei,ap5030dn)
+		caldata_extract "art" 0x5000 0x844
+		ath10k_patch_mac $(mtd_get_mac_binary art 0x2005b)
 		;;
 	iodata,wn-ac1167dgr|\
 	iodata,wn-ac1600dgr2|\
