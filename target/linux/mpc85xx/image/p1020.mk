@@ -10,6 +10,24 @@ define Build/MultiImage
         rm -rf $@.fakerd
 endef
 
+define Device/aruba_ap-215
+  DEVICE_VENDOR := Aruba
+  DEVICE_MODEL := AP-215
+  DEVICE_DTS := aruba-ap215
+  DEVICE_PACKAGES := kmod-ath10k-ct ath10k-firmware-qca988x-ct kmod-tpm-i2c-atmel
+  BLOCKSIZE := 128k
+  KERNEL := kernel-bin | uImage none
+  KERNEL_INITRAMFS := kernel-bin | uImage none
+  KERNEL_NAME := simpleImage.aruba-ap215
+  KERNEL_ENTRY := 0x1500000
+  KERNEL_LOADADDR := 0x1500000
+  IMAGES := sysupgrade.bin
+  IMAGE/sysupgrade.bin := append-dtb | pad-to 256k | append-kernel | \
+	append-rootfs | pad-rootfs | check-size | append-metadata
+  IMAGE_SIZE = 30m
+endef
+TARGET_DEVICES += aruba_ap-215
+
 define Device/aerohive_hiveap-330
   DEVICE_VENDOR := Aerohive
   DEVICE_MODEL := HiveAP-330
